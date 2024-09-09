@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import myImage from "../assets/all-combined.webp";
+---
+
+<BaseLayout title="Home">
+  <div class="masonry-gallery w-[70vh] h-[70vh] overflow-hidden mx-auto">
+    <Image
+      src={myImage}
+      widths={[240, 540, 720, 1080, 1440, myImage.width]}
+      sizes={`(max-width: 240px) 240px, (max-width: 540px) 540px, (max-width: 720px) 720px, (max-width: 1080px) 1080px, (max-width: 1440px) 1440px, ${myImage.width}px`}
+      alt="A description of my image."
+      class="w-full h-full object-cover"
+    />
+  </div>
+</BaseLayout>
+
+<style>
+	.masonry-gallery {
+    -webkit-mask-image: url('/images/mask.svg'); /* Adjust the path as needed */
+    mask-image: url('/images/mask.svg');
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    -webkit-mask-position: center;
+    mask-position: center;
+	}
+</style>
