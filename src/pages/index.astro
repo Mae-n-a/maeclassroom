@@ -5,14 +5,28 @@ import myImage from "../assets/all-combined.webp";
 ---
 
 <BaseLayout title="Home">
-  <div class="masonry-gallery w-[70vh] h-[70vh] overflow-hidden mx-auto">
-    <Image
-      src={myImage}
-      widths={[240, 540, 720, 1080, 1440, myImage.width]}
-      sizes={`(max-width: 240px) 240px, (max-width: 540px) 540px, (max-width: 720px) 720px, (max-width: 1080px) 1080px, (max-width: 1440px) 1440px, ${myImage.width}px`}
-      alt="A description of my image."
-      class="w-full h-full object-cover"
-    />
+  <div class="flex flex-col text-center md:text-left md:flex-row w-full items-center p-4">
+    <div class="md:w-1/3">
+      <h1 class="text-4xl font-extrabold leading-normal mb-4 bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">Mae's Creative<br>Classroom</h1>
+      <h2 class="text-2xl font-semibold text-gray-800 leading-tight mb-4">Unlock Your Creativity with Personalized Art Workshops</h2>
+      <p class="mb-4">Discover unique art experiences through engaging workshops, mixed media, and drawing programs guided by a professional art teacher.</p>
+      <a href="#" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+        Book A Demo
+        </span>
+      </a>
+    </div>
+    <div class="md:w-2/3">
+      <div class="masonry-gallery w-[70vw] h-[70vw] md:w-[70vh] md:h-[70vh] overflow-hidden mx-auto">
+        <Image
+          src={myImage}
+          widths={[240, 540, 720, 1080, 1440, myImage.width]}
+          sizes={`(max-width: 240px) 240px, (max-width: 540px) 540px, (max-width: 720px) 720px, (max-width: 1080px) 1080px, (max-width: 1440px) 1440px, ${myImage.width}px`}
+          alt="A description of my image."
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
   </div>
 </BaseLayout>
 
