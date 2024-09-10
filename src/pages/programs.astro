@@ -3,5 +3,143 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Programs">
-  <h1>Programs</h1>
+  <section class="bg-white">
+    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+      <img
+        class="w-full"
+        src="/images/drawing.webp"
+        alt="drawing"
+      />
+      <div class="mt-4 md:mt-0">
+        <h2 class="mb-4 text-4xl tracking-tight leading-normal font-extrabold text-gray-900 bg-gradient-to-r from-primary-500 via-cyan-700 to-accent-400 inline-block text-transparent bg-clip-text">
+          Introduction to Drawing.
+        </h2>
+        <p class="mb-6 font-light text-gray-500 md:text-lg">
+          Drawing is an 8-week course that covers the core principles of drawing, expanding students' understanding of this fundamental art form. The major concepts covered include Shape, Shading, and Color, with each topic explored throughout one class. The class provides a supportive environment for creative expression, learning, and enjoyment. This approach not only improves drawing skills but also enhances problem-solving and critical-thinking abilities.
+        </p>
+
+        <!-- Accordion starts here -->
+        <div id="accordion-drawing" data-accordion="collapse">
+          <!-- Ages 6-12 -->
+          <h2 id="accordion-drawing-heading-1">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 rounded-t-xl hover:bg-gray-100" data-accordion-target="#accordion-drawing-body-1" aria-expanded="true" aria-controls="accordion-drawing-body-1">
+              <span>Ages 6-12</span>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+              </svg>
+            </button>
+          </h2>
+          <div id="accordion-drawing-body-1" class="hidden" aria-labelledby="accordion-drawing-heading-1">
+            <div class="p-5 border border-b-0 border-gray-200">
+              <p class="text-gray-500">In this program, young artists learn to simplify complex objects into basic shapes by understanding the fundamental elements of art. Students will also explore the elements of art and design principles, including space, composition, form, and texture.</p>
+            </div>
+          </div>
+
+          <!-- Ages 13-17 -->
+          <h2 id="accordion-drawing-heading-2">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-gray-200 hover:bg-gray-100" data-accordion-target="#accordion-drawing-body-2" aria-expanded="false" aria-controls="accordion-drawing-body-2">
+              <span>Ages 13-17</span>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+              </svg>
+            </button>
+          </h2>
+          <div id="accordion-drawing-body-2" class="hidden" aria-labelledby="accordion-drawing-heading-2">
+            <div class="p-5 border border-t-0 border-gray-200">
+              <p class="text-gray-500">This course is designed for students with a serious interest in developing advanced techniques in drawing. It offers in-depth studies of the human figure, animals, still life, and landscapes.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Accordion ends here -->
+
+        <a
+          href="#"
+          class="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4"
+        >
+          Enroll
+          <svg
+            class="ml-2 -mr-1 w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path></svg
+          >
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+      <div class="mt-4 md:mt-0 order-2 md:order-1">
+        <h2 class="mb-4 text-4xl tracking-tight leading-normal font-extrabold text-gray-900 bg-gradient-to-r from-primary-500 via-cyan-700 to-accent-400 inline-block text-transparent bg-clip-text">
+          Mixed Media Program
+        </h2>
+        <p class="mb-6 font-light text-gray-500 md:text-lg">
+          The Mixed Media Inspired Art Project is an engaging after-school program that introduces students to many different kinds of artistic materials and techniques. Organized into seasonal themes, each season consists of 8 one-hour lessons designed to encourage creative experimentation. This approach helps students develop their artistic skills and express their individuality.
+        </p>
+
+        <!-- Accordion starts here -->
+        <div id="accordion-mixed-media" data-accordion="collapse">
+          <!-- Ages 4-6 -->
+          <h2 id="accordion-mixed-media-heading-1">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 rounded-t-xl hover:bg-gray-100" data-accordion-target="#accordion-mixed-media-body-1" aria-expanded="true" aria-controls="accordion-mixed-media-body-1">
+              <span>Ages 4-6 (Youngest Artists)</span>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+              </svg>
+            </button>
+          </h2>
+          <div id="accordion-mixed-media-body-1" class="hidden" aria-labelledby="accordion-mixed-media-heading-1">
+            <div class="p-5 border border-b-0 border-gray-200">
+              <p class="text-gray-500">In this playful and imaginative class, young artists will explore mixed media through simple and fun projects. They will experiment with various materials such as paper, fabric, and paint, discovering how different textures and colors can come together to create vibrant and amazing artwork. This age-appropriate approach promotes creativity and fine motor skills in a supportive and engaging environment.</p>
+            </div>
+          </div>
+
+          <!-- Ages 6-12 -->
+          <h2 id="accordion-mixed-media-heading-2">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 hover:bg-gray-100" data-accordion-target="#accordion-mixed-media-body-2" aria-expanded="false" aria-controls="accordion-mixed-media-body-2">
+              <span>Ages 6-12</span>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+              </svg>
+            </button>
+          </h2>
+          <div id="accordion-mixed-media-body-2" class="hidden" aria-labelledby="accordion-mixed-media-heading-2">
+            <div class="p-5 border border-b-0 border-gray-200">
+              <p class="text-gray-500">This class allows students to dive deeper into mixed media techniques, experimenting with a wide range of materials, including acrylics, watercolors, and collages. Students will learn to combine different media to create unique and dynamic art pieces. The course emphasizes creative exploration and helps develop artistic skills while encouraging self-expression and problem-solving.</p>
+            </div>
+          </div>
+
+          <!-- Ages 13-17 -->
+          <h2 id="accordion-mixed-media-heading-3">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-gray-200 hover:bg-gray-100" data-accordion-target="#accordion-mixed-media-body-3" aria-expanded="false" aria-controls="accordion-mixed-media-body-3">
+              <span>Ages 13-17</span>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+              </svg>
+            </button>
+          </h2>
+          <div id="accordion-mixed-media-body-3" class="hidden" aria-labelledby="accordion-mixed-media-heading-3">
+            <div class="p-5 border border-t-0 border-gray-200">
+              <p class="text-gray-500">Designed for older students, this program focuses on advanced mixed media techniques and projects. Teens will explore a variety of materials and methods, integrating their knowledge of art fundamentals to create sophisticated and expressive artworks. The course aims to refine their skills and personal style, providing an opportunity for them to develop a unique artistic voice and tackle more complex artistic tasks.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Accordion ends here -->
+
+        <a href="#" class="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4">
+          Enroll
+          <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
+      <img class="w-full order-1 md:order-2" src="/images/mixed-media.webp" alt="mixed media" />
+    </div>
+  </section>
+
 </BaseLayout>
