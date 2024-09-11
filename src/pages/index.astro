@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 import myImage from "../assets/all-combined.webp";
+
 ---
 
 <BaseLayout title="Home">
@@ -14,20 +15,19 @@ import myImage from "../assets/all-combined.webp";
         <br>
         <p>At Mae's Creative Classroom, we believe that everyone has a natural talent to create wonderful artwork, and our mission is to provide the tools, guidance, and inspiration to unleash that creativity.</p>
       </div>
-      <!-- <a href="#" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-        Book A Demo
-        </span>
-      </a> -->
-    </div>
+      </div>
     <div class="md:w-2/3">
-      <div class="masonry-gallery w-[70vw] h-[70vw] md:w-[70vh] md:h-[70vh] overflow-hidden mx-auto">
-        <Image
+      <div class="masonry-gallery w-[70vw] h-[70vw] md:w-[70vh] md:h-[70vh] overflow-hidden mx-auto relative">
+        <div class="absolute top-0 left-0 w-full h-full bg-gray-200 animate-pulse"></div>
+        <Picture
           src={myImage}
-          widths={[240, 540, 720, 1080, 1440, myImage.width]}
-          sizes={`(max-width: 240px) 240px, (max-width: 540px) 540px, (max-width: 720px) 720px, (max-width: 1080px) 1080px, (max-width: 1440px) 1440px, ${myImage.width}px`}
-          alt="A description of my image."
-          class="w-full h-full object-cover"
+          alt="A description of my image"
+          class="transform transition-transform hover:scale-150 hover:rotate-2"
+          widths={[720, 1080, 1440, myImage.width]}
+          sizes={`(max-width: 720px) 720px, (max-width: 1080px) 1080px, (max-width: 1440px) 1440px, ${myImage.width}px`}
+          formats={['avif', 'webp']}
+          loading={"eager"}
+          onload="document.querySelector('.animate-pulse')?.classList.remove('bg-gray-200', 'animate-pulse')"
         />
       </div>
     </div>
@@ -35,12 +35,12 @@ import myImage from "../assets/all-combined.webp";
 </BaseLayout>
 
 <style>
-	.masonry-gallery {
+  .masonry-gallery {
     -webkit-mask-image: url('/images/mask.svg'); /* Adjust the path as needed */
     mask-image: url('/images/mask.svg');
     -webkit-mask-size: cover;
     mask-size: cover;
     -webkit-mask-position: center;
     mask-position: center;
-	}
+  }
 </style>
