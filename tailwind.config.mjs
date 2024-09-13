@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: [
-		'./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
-		'./node_modules/flowbite/**/*.js'
-	],
+  content: [
+    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+    './node_modules/flowbite/**/*.js'
+  ],
   theme: {
     extend: {
       colors: {
@@ -32,9 +32,12 @@ module.exports = {
           900: '#1a1000',
         },
       },
+      fontFamily: {
+        Poppins: ['Poppins', 'sans-serif'],
+      },
     },
   },
-	plugins: [
-		require('flowbite/plugin')
-	],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
