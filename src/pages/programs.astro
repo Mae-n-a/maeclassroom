@@ -1,176 +1,88 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, programs, accents, faqs } from '../data/site';
+import little from '../assets/photos/g-collage-space.jpg';
+import lab from '../assets/photos/g-mixed-media-astronaut.jpg';
+import intensive from '../assets/photos/g-character-study.jpg';
+import studio from '../assets/photos/programs-studio.jpg';
+import schoolsA from '../assets/photos/strip-2.jpg';
+import schoolsB from '../assets/photos/strip-3.jpg';
+
+const photos = [
+  { src: little, alt: 'Collage in space, student artwork', caption: 'collage week' },
+  { src: lab, alt: 'Mixed-media astronaut, student artwork', caption: 'mixed media, week 9' },
+  { src: intensive, alt: 'Character study in paper and thread, student artwork', caption: 'character study' },
+];
+const anchors = ['little', 'lab', 'intensive'];
 ---
+<BaseLayout title="Programs" description="Little Studio (6–8), Mixed Media Lab (9–12), Drawing Intensive (13–17) and on-site workshops for schools. 10-week terms, materials included.">
+  <section class="wrap pb-[clamp(40px,6vw,72px)] pt-[clamp(32px,5vw,64px)]">
+    <p class="note-intro">programs —</p>
+    <h1 class="h1 max-w-[18ch]">Four ways to spend a week making something.</h1>
+    <p class="mb-6 max-w-[56ch] text-body">Terms run 10 weeks. Materials, aprons and framing for the end-of-term show are included. Try a single session before you commit to the term.</p>
+    <nav aria-label="Jump to a program" class="flex flex-wrap gap-2.5">
+      {programs.map((p, i) => (
+        <a href={`#${anchors[i]}`} class="rounded-full border-2 bg-white px-4 py-1.5 font-hand text-[22px] text-strong no-underline" style={`border-color:${accents[p.accent].border}`}>{p.ages.replace('Ages ', '')}</a>
+      ))}
+      <a href="#schools" class="rounded-full border-2 border-strong bg-white px-4 py-1.5 font-hand text-[22px] text-strong no-underline">schools</a>
+    </nav>
+  </section>
 
-<BaseLayout title="Programs">
-  <section class="bg-white min-h-[100dvh]">
-    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
-      <img
-        class="w-full"
-        src="/images/drawing.webp"
-        alt="drawing"
-      />
-      <div class="mt-4 md:mt-0">
-        <h2 class="mb-4 text-4xl tracking-tight leading-normal font-extrabold text-gray-900 bg-gradient-to-r from-primary-500 via-cyan-700 to-accent-400 inline-block text-transparent bg-clip-text">
-          Drawing Program.
-        </h2>
-        <p class="mb-6 font-light text-gray-500 md:text-lg">
-          Drawing is an 8-week course that covers the core principles of drawing, expanding students' understanding of this fundamental art form. The major concepts covered include Shape, Shading, and Color, with each topic explored throughout one class. The class provides a supportive environment for creative expression, learning, and enjoyment. This approach not only improves drawing skills but also enhances problem-solving and critical-thinking abilities.
+  {programs.map((p, i) => (
+    <section id={anchors[i]} class="wrap section grid grid-cols-[repeat(auto-fit,minmax(min(340px,100%),1fr))] items-center gap-[clamp(32px,5vw,64px)]">
+      <figure class:list={['polaroid', i % 2 ? 'rotate-2 min-[760px]:order-2' : '-rotate-2']}>
+        <div class="tape" style={`background:${accents[p.accent].tape}`}></div>
+        <Image src={photos[i].src} alt={photos[i].alt} widths={[500, 900]} sizes="(min-width: 760px) 45vw, 90vw" class="aspect-[4/3] w-full object-cover" />
+        <figcaption>{photos[i].caption}</figcaption>
+      </figure>
+      <div>
+        <p class="font-hand text-[28px]" style={`color:${accents[p.accent].label}`}>
+          {p.ages.toLowerCase()}
+          {p.highlight && <span class="ml-1 rounded-md bg-tint-chip px-2 text-magenta">{p.highlight}</span>}
         </p>
+        <h2 class="mb-3 text-[clamp(30px,3vw,40px)]">{p.name}</h2>
+        <p class="mb-[18px] max-w-[48ch] text-body">{p.description}</p>
+        <ul class="mb-5 grid gap-1.5 text-[15px] text-strong">
+          <li><strong>When:</strong> {p.chips.join(', ')}</li>
+          <li><strong>Group:</strong> up to 8</li>
+          {site.showPricing && <li><strong>Term:</strong> £{p.price} for 10 weeks, materials included</li>}
+        </ul>
+        <a href="/contact" class="btn-primary">Book a {p.name} trial</a>
+      </div>
+    </section>
+  ))}
 
-        <!-- Accordion starts here -->
-        <div id="accordion-drawing" data-accordion="collapse">
-          <!-- Ages 6-12 -->
-          <h2 id="accordion-drawing-heading-1">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 rounded-t-xl hover:bg-gray-100" data-accordion-target="#accordion-drawing-body-1" aria-expanded="true" aria-controls="accordion-drawing-body-1">
-              <span>Ages 6-12</span>
-              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-              </svg>
-            </button>
-          </h2>
-          <div id="accordion-drawing-body-1" class="hidden" aria-labelledby="accordion-drawing-heading-1">
-            <div class="p-5 border border-b-0 border-gray-200">
-              <p class="text-gray-500">In this program, young artists learn to simplify complex objects into basic shapes by understanding the fundamental elements of art. Students will also explore the elements of art and design principles, including space, composition, form, and texture.</p>
-            </div>
-          </div>
-
-          <!-- Ages 13-17 -->
-          <h2 id="accordion-drawing-heading-2">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-gray-200 hover:bg-gray-100" data-accordion-target="#accordion-drawing-body-2" aria-expanded="false" aria-controls="accordion-drawing-body-2">
-              <span>Ages 13-17</span>
-              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-              </svg>
-            </button>
-          </h2>
-          <div id="accordion-drawing-body-2" class="hidden" aria-labelledby="accordion-drawing-heading-2">
-            <div class="p-5 border border-t-0 border-gray-200">
-              <p class="text-gray-500">This course is designed for students with a serious interest in developing advanced techniques in drawing. It offers in-depth studies of the human figure, animals, still life, and landscapes.</p>
-            </div>
-          </div>
-        </div>
-        <!-- Accordion ends here -->
-
-        <button
-          data-modal-target="default-modal" data-modal-toggle="default-modal"
-          class="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4"
-        >
-          Enroll
-          <svg
-            class="ml-2 -mr-1 w-5 h-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-            ><path
-              fill-rule="evenodd"
-              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path></svg
-          >
-        </button>
+  <section id="schools" class="wrap section">
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] items-center gap-[clamp(28px,4vw,52px)] rounded-[18px] border border-tint-border bg-tint p-[clamp(28px,4vw,52px)]">
+      <div>
+        <p class="note">schools &amp; groups</p>
+        <h2 class="mb-3 text-[clamp(30px,3vw,40px)]">Workshops, on your site</h2>
+        <p class="mb-[18px] max-w-[48ch] text-body">A single session or a half-term residency, mapped to your curriculum aims and delivered in your hall or art room. Everything arrives with Mae: materials, cover sheets, risk assessment, clean-up.</p>
+        <p class="mb-5 text-[15px] text-strong"><strong>60–120 minutes</strong> · <strong>up to 30 students</strong> · Enhanced DBS</p>
+        <a href="/contact?type=school" class="btn-primary">Request a quote</a>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <Image src={schoolsA} alt="Student artwork from a workshop" widths={[300, 600]} sizes="25vw" class="aspect-square w-full -rotate-2 rounded-lg object-cover" />
+        <Image src={schoolsB} alt="Student artwork from a workshop" widths={[300, 600]} sizes="25vw" class="aspect-square w-full rotate-2 rounded-lg object-cover" />
       </div>
     </div>
   </section>
 
-  <section class="bg-white">
-    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
-      <img class="w-full order-1 md:order-2" src="/images/mixed-media.webp" alt="mixed media" />
-      <div class="mt-4 mb-4 md:mt-0 md:mb-0 order-2 md:order-1">
-        <h2 class="mb-4 text-4xl tracking-tight leading-normal font-extrabold text-gray-900 bg-gradient-to-r from-primary-500 via-cyan-700 to-accent-400 inline-block text-transparent bg-clip-text">
-          Mixed Media Program
-        </h2>
-        <p class="mb-6 font-light text-gray-500 md:text-lg">
-          The Mixed Media Inspired Art Project is an engaging after-school program that introduces students to many different kinds of artistic materials and techniques. Organized into seasonal themes, each season consists of 8 one-hour lessons designed to encourage creative experimentation. This approach helps students develop their artistic skills and express their individuality.
-        </p>
-
-        <!-- Accordion starts here -->
-        <div id="accordion-mixed-media" data-accordion="collapse">
-          <!-- Ages 4-6 -->
-          <h2 id="accordion-mixed-media-heading-1">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 rounded-t-xl hover:bg-gray-100" data-accordion-target="#accordion-mixed-media-body-1" aria-expanded="true" aria-controls="accordion-mixed-media-body-1">
-              <span>Ages 4-6 (Youngest Artists)</span>
-              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-              </svg>
-            </button>
-          </h2>
-          <div id="accordion-mixed-media-body-1" class="hidden" aria-labelledby="accordion-mixed-media-heading-1">
-            <div class="p-5 border border-b-0 border-gray-200">
-              <p class="text-gray-500">In this playful and imaginative class, young artists will explore mixed media through simple and fun projects. They will experiment with various materials such as paper, fabric, and paint, discovering how different textures and colors can come together to create vibrant and amazing artwork. This age-appropriate approach promotes creativity and fine motor skills in a supportive and engaging environment.</p>
-            </div>
-          </div>
-
-          <!-- Ages 6-12 -->
-          <h2 id="accordion-mixed-media-heading-2">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 hover:bg-gray-100" data-accordion-target="#accordion-mixed-media-body-2" aria-expanded="false" aria-controls="accordion-mixed-media-body-2">
-              <span>Ages 6-12</span>
-              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-              </svg>
-            </button>
-          </h2>
-          <div id="accordion-mixed-media-body-2" class="hidden" aria-labelledby="accordion-mixed-media-heading-2">
-            <div class="p-5 border border-b-0 border-gray-200">
-              <p class="text-gray-500">This class allows students to dive deeper into mixed media techniques, experimenting with a wide range of materials, including acrylics, watercolors, and collages. Students will learn to combine different media to create unique and dynamic art pieces. The course emphasizes creative exploration and helps develop artistic skills while encouraging self-expression and problem-solving.</p>
-            </div>
-          </div>
-
-          <!-- Ages 13-17 -->
-          <h2 id="accordion-mixed-media-heading-3">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-gray-200 hover:bg-gray-100" data-accordion-target="#accordion-mixed-media-body-3" aria-expanded="false" aria-controls="accordion-mixed-media-body-3">
-              <span>Ages 13-17</span>
-              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-              </svg>
-            </button>
-          </h2>
-          <div id="accordion-mixed-media-body-3" class="hidden" aria-labelledby="accordion-mixed-media-heading-3">
-            <div class="p-5 border border-t-0 border-gray-200">
-              <p class="text-gray-500">Designed for older students, this program focuses on advanced mixed media techniques and projects. Teens will explore a variety of materials and methods, integrating their knowledge of art fundamentals to create sophisticated and expressive artworks. The course aims to refine their skills and personal style, providing an opportunity for them to develop a unique artistic voice and tackle more complex artistic tasks.</p>
-            </div>
-          </div>
-        </div>
-        <!-- Accordion ends here -->
-
-        <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4">
-          Enroll
-          <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-          </svg>
-        </button>
-      </div>
+  <section class="wrap section grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] items-start gap-[clamp(32px,5vw,64px)]">
+    <div>
+      <h2 class="h2 mb-5">Questions parents ask</h2>
+      {faqs.map((f, i) => (
+        <details class:list={['border-t border-outline py-4', i === faqs.length - 1 && 'border-b']}>
+          <summary class="cursor-pointer text-[17px] font-bold">{f.q}</summary>
+          <p class="mt-2.5 text-body">{f.a}</p>
+        </details>
+      ))}
     </div>
+    <figure class="polaroid rotate-1">
+      <div class="tape" style={`background:${accents.orange.tape}`}></div>
+      <Image src={studio} alt="The studio set up for a class" widths={[500, 900]} sizes="(min-width: 760px) 45vw, 90vw" class="aspect-[3/2] w-full object-cover" />
+      <figcaption>the studio, ready for Saturday</figcaption>
+    </figure>
   </section>
-
-  <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Enroll
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-4 md:p-5 space-y-4">
-              <p class="text-xl leading-relaxed mb-4 text-gray-500 dark:text-gray-400">
-                  To learn more about our classes, programs, and workshops, feel free to reach out to us at
-                  <a href="mailto:contact@maeclassroom.com" class="text-primary-500 underline">contact@maeclassroom.com</a> or via our <a href="/contact" class="text-primary-500 underline">contact form</a>.
-              </p>
-          </div>
-            <!-- Modal footer -->
-            <!-- <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="default-modal" type="button" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">OK</button>
-            </div> -->
-        </div>
-    </div>
-</div>
-
 </BaseLayout>

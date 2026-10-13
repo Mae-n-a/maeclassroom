@@ -1,0 +1,89 @@
+---
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { gallery } from '../data/site';
+
+const groupOf = (credit: string) => {
+  const age = Number(credit.match(/\d+/)?.[0]);
+  return !age ? 'other' : age <= 8 ? '6-8' : age <= 12 ? '9-12' : '13-17';
+};
+const filters = [['all', 'everything'], ['6-8', 'ages 6–8'], ['9-12', 'ages 9–12'], ['13-17', 'ages 13–17']];
+const tilts = ['-rotate-2', 'rotate-[1.5deg]', '-rotate-1', 'rotate-[2.5deg]', '-rotate-[2.5deg]', 'rotate-1'];
+
+const items = await Promise.all(gallery.map(async (g) => ({
+  ...g,
+  group: groupOf(g.credit),
+  large: await getImage({ src: g.image, width: 1600, format: 'webp' }),
+})));
+---
+<BaseLayout title="Gallery" description="Student work from Mae's Creative Classroom, by artists aged 6 to 17 — shown exactly as they made it.">
+  <section class="wrap pb-8 pt-[clamp(32px,5vw,64px)]">
+    <p class="note-intro">the studio wall —</p>
+    <h1 class="h1 max-w-[20ch]">Nothing here was corrected by an adult.</h1>
+    <p class="mb-7 max-w-[56ch] text-body">A rolling selection of term work, shown with each student's first name and age, with their family's permission.</p>
+    <div role="group" aria-label="Filter by age group" class="flex flex-wrap gap-2.5">
+      {filters.map(([id, label], i) => (
+        <button type="button" data-filter={id} aria-pressed={i === 0 ? 'true' : 'false'}
+                class="min-h-11 rounded-full border-2 border-outline bg-white px-[18px] py-1.5 font-hand text-[22px] text-strong aria-pressed:border-magenta aria-pressed:bg-magenta aria-pressed:text-white">
+          {label}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap section pt-6">
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(min(240px,100%),1fr))] gap-x-[30px] gap-y-10">
+      {items.map((g, i) => (
+        <figure class:list={['polaroid pb-3', tilts[i % tilts.length]]} data-group={g.group}>
+          <a href={g.large.src} data-lightbox>
+            <Image src={g.image} alt={`${g.medium}, student artwork`} widths={[400, 800]} sizes="(min-width: 760px) 25vw, 90vw"
+                   class:list={['aspect-[4/5] w-full', g.contain ? 'object-contain' : 'object-cover']} />
+          </a>
+          <figcaption class="!static !mt-2 !whitespace-normal !leading-tight">{g.medium} — {g.credit}</figcaption>
+        </figure>
+      ))}
+    </div>
+    <p id="empty" hidden class="font-hand text-[26px] text-body">nothing pinned up for this group yet!</p>
+  </section>
+
+  <section class="wrap section">
+    <div class="dashed-box flex flex-wrap items-center justify-between gap-6">
+      <p class="font-display text-[clamp(22px,2.2vw,28px)] font-bold">Want your child's work up here next term?</p>
+      <a href="/contact" class="btn-primary">Book a trial</a>
+    </div>
+  </section>
+
+  <dialog id="lightbox" class="max-h-[92vh] max-w-[92vw] rounded-[18px] p-0 backdrop:bg-ink/80">
+    <form method="dialog"><button class="absolute right-3 top-3 rounded-full bg-white px-3 py-1 text-sm font-semibold">Close</button></form>
+  </dialog>
+</BaseLayout>
+
+<script>
+  const figures = document.querySelectorAll<HTMLElement>('[data-group]');
+  const empty = document.getElementById('empty')!;
+  document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((button, _, all) => {
+    button.addEventListener('click', () => {
+      const id = button.dataset.filter;
+      all.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+      let shown = 0;
+      figures.forEach((f) => {
+        f.hidden = id !== 'all' && f.dataset.group !== id;
+        if (!f.hidden) shown++;
+      });
+      empty.hidden = shown > 0;
+    });
+  });
+
+  const dialog = document.getElementById('lightbox') as HTMLDialogElement;
+  const img = dialog.appendChild(new Image());
+  img.className = 'max-h-[92vh] w-auto';
+  document.querySelectorAll<HTMLAnchorElement>('[data-lightbox]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      img.src = a.href;
+      img.alt = a.querySelector('img')?.alt ?? '';
+      dialog.showModal();
+    });
+  });
+  dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+</script>

@@ -1,51 +1,116 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { Picture } from "astro:assets";
-import myImage from "../assets/all-combined.webp";
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { programs, accents, gallery, quote } from '../data/site';
+import letters from '../assets/photos/hero-standing-letters.jpg';
+import waxResist from '../assets/photos/g-wax-resist-portrait.jpg';
+import strip1 from '../assets/photos/strip-1.jpg';
 
+const hero = [
+  { src: letters, alt: 'Student artwork: large cut-out letters standing on a table, each filled with bright hand-drawn patterns', caption: 'pattern letters', box: 'left-[4%] top-0 w-[54%] -rotate-[4deg]', aspect: 'aspect-[4/5]', tape: accents.orange.tape },
+  { src: waxResist, alt: 'Wax-resist portrait, student artwork', caption: 'wax resist portrait', box: 'right-[2%] top-[60px] w-[46%] rotate-[5deg]', aspect: 'aspect-[3/4]', tape: accents.magenta.tape },
+  { src: strip1, alt: 'Student artwork from the studio', caption: 'fresh off the table', box: 'left-[30%] bottom-0 w-[42%] -rotate-1', aspect: 'aspect-[4/3]', tape: accents.red.tape },
+];
+const wall = gallery.slice(0, 4);
+const tilts = ['-rotate-2', 'rotate-2', '-rotate-1', 'rotate-3'];
 ---
-
-<BaseLayout title="Home">
-  <div class="flex flex-col text-center md:text-left md:flex-row w-full items-center p-4">
-    <div class="md:w-1/3">
-      <h1 class="text-4xl font-extrabold leading-normal pb-4 bg-gradient-to-r from-primary-500 via-cyan-700 to-accent-400 inline-block text-transparent bg-clip-text">Mae's Creative<br>Classroom</h1>
-      <h2 class="text-2xl font-semibold text-gray-800 leading-tight pb-4">Unlock Your Creativity with Personalized Art Programs</h2>
-      <div class="pb-4">
-        <p>Discover unique art experiences through engaging programs, mixed media, and drawing programs guided by professional art teachers.</p>
-        <br>
-        <p>At Mae's Creative Classroom, we believe that everyone has a natural talent to create wonderful artwork, and our mission is to provide the tools, guidance, and inspiration to unleash that creativity.</p>
+<BaseLayout title="Home" description="Small art classes for children and teens aged 6–17, plus workshops in schools. A written lesson plan behind every session; the ideas are the child's own.">
+  <section class="wrap section grid grid-cols-[repeat(auto-fit,minmax(min(360px,100%),1fr))] items-center gap-[clamp(40px,6vw,80px)] pt-[clamp(32px,5vw,72px)]">
+    <div>
+      <p class="note-intro">art classes, ages 6–17 —</p>
+      <h1 class="mb-[22px] text-[clamp(40px,5.6vw,70px)] leading-[1.02] tracking-[-0.02em]">
+        The idea is theirs.<br />The plan is
+        <span class="relative whitespace-nowrap">ours.<svg aria-hidden="true" viewBox="0 0 200 18" preserveAspectRatio="none" class="absolute -bottom-2.5 left-0 h-4 w-full"><path d="M3 12 C 40 3, 80 16, 120 8 S 180 5, 197 10" fill="none" stroke="#EF9400" stroke-width="5" stroke-linecap="round" /></svg></span>
+      </h1>
+      <p class="mb-[30px] max-w-[44ch] text-[clamp(16px,1.35vw,19px)] text-body">Small classes with a written lesson plan behind every session. Children choose the subject, the palette and the scale. Nobody copies a finished example off the board.</p>
+      <div class="flex flex-wrap items-center gap-3.5">
+        <a href="/programs" class="btn-primary">Pick a class</a>
+        <span class="font-hand text-2xl text-body">max 8 per class!</span>
       </div>
-      <a href="/programs" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-lg font-medium text-primary-500 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 ">
-        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-        Discover Programs
-        </span>
+    </div>
+    <div class="relative min-h-[460px]">
+      {hero.map((h, i) => (
+        <figure class:list={['polaroid absolute', h.box]}>
+          <div class="tape" style={`background:${h.tape}`}></div>
+          <Image src={h.src} alt={h.alt} widths={[400, 700]} sizes="(min-width: 760px) 30vw, 60vw" loading={i === 0 ? 'eager' : 'lazy'} class:list={['w-full object-cover', h.aspect]} />
+          <figcaption>{h.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="mb-7 flex flex-wrap items-baseline justify-between gap-4">
+      <h2 class="h2">Four ways in</h2>
+      <a href="/programs" class="link-arrow">All the details →</a>
+    </div>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-5">
+      {programs.map((p) => (
+        <a href="/programs" class="card block hover:text-ink">
+          <p class="font-hand text-2xl" style={`color:${accents[p.accent].label}`}>{p.ages.toLowerCase()}</p>
+          <h3 class="mb-1.5 text-[22px]">{p.name}</h3>
+          <p class="text-[15px] text-body">{p.chips.join(' · ')}</p>
+        </a>
+      ))}
+      <a href="/programs#schools" class="card block border-tint-border bg-tint hover:text-ink">
+        <p class="font-hand text-2xl text-magenta">schools &amp; groups</p>
+        <h3 class="mb-1.5 text-[22px]">Workshops on your site</h3>
+        <p class="text-[15px] text-body">60–120 minutes · up to 30</p>
       </a>
     </div>
-    <div class="md:w-2/3">
-      <div class="masonry-gallery w-[70vw] h-[70vw] md:w-[70vh] md:h-[70vh] overflow-hidden mx-auto relative">
-        <div class="absolute top-0 left-0 w-full h-full bg-gray-200 animate-pulse"></div>
-        <Picture
-          src={myImage}
-          alt="A description of my image"
-          class="transform transition-transform hover:scale-150 hover:rotate-2"
-          widths={[720, 1080, 1440, myImage.width]}
-          sizes={`(max-width: 720px) 720px, (max-width: 1080px) 1080px, (max-width: 1440px) 1440px, ${myImage.width}px`}
-          formats={['avif', 'webp']}
-          loading={"eager"}
-          onload="document.querySelector('.animate-pulse')?.classList.remove('bg-gray-200', 'animate-pulse')"
-        />
-      </div>
-    </div>
-  </div>
-</BaseLayout>
+  </section>
 
-<style>
-  .masonry-gallery {
-    -webkit-mask-image: url('/images/mask.svg');
-    mask-image: url('/images/mask.svg');
-    -webkit-mask-size: cover;
-    mask-size: cover;
-    -webkit-mask-position: center;
-    mask-position: center;
-  }
-</style>
+  <section class="wrap section grid grid-cols-[repeat(auto-fit,minmax(min(340px,100%),1fr))] items-center gap-[clamp(32px,5vw,72px)]">
+    <!-- TODO(Mae): swap this sketch for a photo of a real page from the planner. -->
+    <div class="lined -rotate-1">
+      <p class="note mb-1.5 text-[30px] leading-8">Mixed Media Lab — a term</p>
+      <ol class="list-decimal pl-7 font-hand text-2xl leading-8 text-strong">
+        <li>ink: line weight + wash</li>
+        <li>acrylic: mixing colours</li>
+        <li>lino: cut + print a tile</li>
+        <li>plaster: cast a found object</li>
+        <li>…</li>
+        <li>final piece — your idea, any 3 materials</li>
+      </ol>
+    </div>
+    <div>
+      <h2 class="h2 mb-4">Every term is written down before it starts.</h2>
+      <p class="mb-5 max-w-[46ch] text-body">You get the plan in week one: one skill introduced, practised, then used in a finished piece. So you always know what your child is learning, and why.</p>
+      <a href="/about" class="link-arrow">How Mae teaches →</a>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="mb-9 flex flex-wrap items-baseline justify-between gap-4">
+      <h2 class="h2">Pinned to the studio wall</h2>
+      <a href="/gallery" class="link-arrow">See the whole wall →</a>
+    </div>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-x-7 gap-y-9">
+      {wall.map((g, i) => (
+        <figure class:list={['polaroid pb-9', tilts[i]]}>
+          <Image src={g.image} alt={`${g.medium}, student artwork`} widths={[300, 600]} sizes="(min-width: 760px) 25vw, 90vw" class:list={['aspect-square w-full', g.contain ? 'object-contain' : 'object-cover']} />
+          <figcaption>{g.credit}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  {quote && (
+    <section class="wrap section">
+      <figure class="mx-auto max-w-[760px] text-center">
+        <blockquote class="font-hand text-[clamp(32px,3.4vw,44px)] leading-tight">“{quote.text}”</blockquote>
+        <figcaption class="mt-3 text-[15px] text-body">— {quote.by}</figcaption>
+      </figure>
+    </section>
+  )}
+
+  <section class="wrap section">
+    <div class="dashed-box flex flex-wrap items-center justify-between gap-6">
+      <div>
+        <p class="note text-[30px]">come and see the room —</p>
+        <h2 class="text-[clamp(28px,2.8vw,38px)]">Book a trial session</h2>
+      </div>
+      <a href="/contact" class="btn-primary">Say hello</a>
+    </div>
+  </section>
+</BaseLayout>

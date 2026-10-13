@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { accents } from '../data/site';
+
+const credentials = [
+  ['training', 'BA Fine Art (Painting); PGCE Art & Design'],
+  ['experience', '9 years secondary, 12 in total'],
+  ['safeguarding', 'Enhanced DBS, paediatric first aid, insured'],
+  ['own practice', 'oil painting; local group shows each spring'],
+];
+---
+<BaseLayout title="About Mae" description="Mae is a painter and former secondary art teacher. Every class is planned and written down; the ideas are always the child's own.">
+  <section class="wrap section grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] items-start gap-[clamp(40px,6vw,80px)] pt-[clamp(32px,5vw,72px)]">
+    <!-- TODO(Mae): portrait not supplied yet. Replace the placeholder with an <Image> of Mae in the studio. -->
+    <figure class="polaroid max-w-[440px] -rotate-2 pb-12">
+      <div class="tape" style={`background:${accents.orange.tape}`}></div>
+      <div class="grid aspect-[4/5] place-items-center border border-dashed border-tint-input bg-tint p-6 text-center text-[15px] text-body">Photo of Mae coming soon</div>
+      <figcaption class="text-[26px]">hi, I'm Mae!</figcaption>
+    </figure>
+    <div>
+      <p class="note-intro">the teacher —</p>
+      <h1 class="h1 mb-6">Painter, and a teacher first.</h1>
+      <div class="max-w-[54ch]">
+        <p class="mb-[18px] text-lg text-strong">I trained as a painter and then spent nine years in secondary art rooms, where I learned the thing this studio is built on: children are not short of ideas. They are short of the skills to carry the idea out, and they lose heart at exactly the point where a plan would have helped.</p>
+        <p class="mb-[18px] text-body">So every class here is planned in advance and written down. I know on week one what week ten looks like, and so does your child. Inside that structure they choose the subject, the palette and the scale — I have never once put a finished example on the board and asked a room to copy it.</p>
+        <p class="text-body">The studio holds eight at a time, which means I get to every student twice a session at minimum. That is the whole reason the classes are small.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] items-center gap-[clamp(32px,5vw,64px)]">
+    <div class="lined rotate-1 [background-image:repeating-linear-gradient(#ffffff_0_35px,#EEF0F6_35px_36px)]">
+      <p class="note text-[30px] leading-9">the paperwork —</p>
+      <dl class="font-hand text-2xl leading-9 text-strong">
+        {credentials.map(([label, value]) => (
+          <div class="flex gap-3">
+            <dt class="min-w-[130px] text-orange-text">{label}</dt>
+            <dd>{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+    <div class="dashed-box">
+      <p class="note">come and say hello —</p>
+      <p class="mb-5 font-display text-[clamp(22px,2.2vw,28px)] font-bold">Visit the studio before you book.</p>
+      <a href="/contact" class="btn-primary">Come and meet me</a>
+    </div>
+  </section>
+</BaseLayout>

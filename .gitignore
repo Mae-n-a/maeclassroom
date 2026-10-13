@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# dev screenshots and design reference material (never commit)
+Screenshot*
+screenshots/
+*.gif
+public/ChatGPT Image*
+public/Ready2cars*

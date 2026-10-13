@@ -1,27 +1,138 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
----
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
 
-<BaseLayout title="Contact Us">
-  <section class="bg-white">
-    <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 bg-gradient-to-r from-primary-500 via-cyan-700 to-accent-400 inline-block text-transparent bg-clip-text">Contact Us</h2>
-      <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 sm:text-xl"></p>
-      <form action="https://formsubmit.co/contact@maeclassroom.com" method="POST" class="space-y-8">
+const fields = [
+  { name: 'name', label: 'Your name', placeholder: 'First and last', required: true },
+  { name: 'email', label: 'Email', placeholder: 'you@example.com', type: 'email' as const, required: true },
+  { name: 'details', label: "Child's age", placeholder: 'e.g. 9' },
+];
+---
+<BaseLayout title="Contact" description="Book a trial session, a studio visit or a school workshop. Mae answers every message herself, usually within a day.">
+  <div class="wrap section grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] items-start gap-[clamp(40px,6vw,80px)] pt-[clamp(32px,5vw,72px)]">
+    <div>
+      <p class="note-intro">say hello —</p>
+      <h1 class="h1">Tell me who's coming.</h1>
+      <p class="mb-8 max-w-[44ch] text-body">I answer every message myself, usually within a day. If you'd rather just come and look at the room first, say so — that's the most common way people start.</p>
+      <div class="grid max-w-[40ch] gap-[22px]">
         <div>
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
-          <input type="email" id="email" name="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@example.com" required>
+          <p class="font-hand text-2xl text-orange-text">studio</p>
+          <p>{site.studio.map((line) => <>{line}<br /></>)}</p>
         </div>
         <div>
-          <label for="subject" class="block mb-2 text-sm font-medium text-gray-900">Subject</label>
-          <input type="text" id="subject" name="subject" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Let us know how we can help you" required>
+          <p class="font-hand text-2xl text-orange-text">email</p>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
         </div>
-        <div class="sm:col-span-2">
-          <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Your message</label>
-          <textarea id="message" name="message" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Leave a comment..." required></textarea>
+        <div>
+          <p class="font-hand text-2xl text-orange-text">instagram</p>
+          <a href={site.instagram}>{site.instagramHandle}</a>
         </div>
-        <button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Send message</button>
+      </div>
+    </div>
+
+    <div class="relative rounded-xl border border-outline bg-white p-[clamp(24px,3.5vw,40px)] shadow-[0_10px_28px_rgba(25,23,32,0.07)]">
+      <div class="tape left-[42%] -rotate-2 bg-magenta/25"></div>
+      <div id="sent" hidden class="px-2 py-8 text-center">
+        <p class="font-hand text-[40px] text-magenta">thank you!</p>
+        <h2 class="mb-2.5 text-2xl">That's with me now.</h2>
+        <p class="text-[15px] text-body">I'll reply from {site.email} within a day, usually sooner.</p>
+      </div>
+
+      <form id="enquiry" action={`https://formsubmit.co/${site.email}`} method="POST" novalidate>
+        <input type="hidden" name="_subject" value="New enquiry from maeclassroom.com" />
+        <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
+        <fieldset class="mb-[22px]">
+          <legend class="mb-2 text-sm text-body">I'm enquiring as a</legend>
+          <div class="flex flex-wrap gap-2">
+            {[['family', 'Parent or guardian'], ['school', 'School or group']].map(([value, label], i) => (
+              <label class="cursor-pointer">
+                <input type="radio" name="enquiring_as" value={label} data-type={value} checked={i === 0} class="peer sr-only" />
+                <span class="flex min-h-11 items-center rounded-full border-2 border-tint-input bg-white px-[18px] text-[15px] font-semibold text-body transition-colors duration-150 peer-checked:border-magenta peer-checked:bg-magenta peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-magenta">{label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <div class="grid gap-4">
+          {fields.map((f) => (
+            <div>
+              <label for={f.name} class="mb-1.5 block text-[13px] font-semibold text-body">{f.label}</label>
+              <input id={f.name} name={f.name} type={f.type ?? 'text'} placeholder={f.placeholder} required={f.required} class="field" />
+              <p class="mt-1 text-[13px] text-red-text" data-error hidden></p>
+            </div>
+          ))}
+          <div>
+            <label for="message" class="mb-1.5 block text-[13px] font-semibold text-body">What would you like to know?</label>
+            <textarea id="message" name="message" required placeholder="Which program you're interested in, any questions, or just say hello." class="field min-h-[110px] resize-y"></textarea>
+            <p class="mt-1 text-[13px] text-red-text" data-error hidden></p>
+          </div>
+          <button type="submit" class="btn bg-magenta p-3.5 text-white hover:bg-magenta-dark disabled:opacity-60">Send to Mae</button>
+          <p id="form-error" hidden class="text-center text-[13px] text-red-text">
+            Sorry, that didn't send. Please email <a href={`mailto:${site.email}`}>{site.email}</a> instead.
+          </p>
+          <p class="text-center font-hand text-[22px] text-body">no mailing list, no forwarding — just a reply from me</p>
+        </div>
       </form>
     </div>
-  </section>
+  </div>
 </BaseLayout>
+
+<script>
+  const form = document.getElementById('enquiry') as HTMLFormElement;
+  const details = form.elements.namedItem('details') as HTMLInputElement;
+  const detailsLabel = form.querySelector('label[for="details"]')!;
+
+  const setType = (type: string) => {
+    const school = type === 'school';
+    detailsLabel.textContent = school ? 'School or organisation' : "Child's age";
+    details.placeholder = school ? 'Name, and roughly how many students' : 'e.g. 9';
+  };
+  form.querySelectorAll<HTMLInputElement>('input[name="enquiring_as"]').forEach((r) => {
+    r.addEventListener('change', () => setType(r.dataset.type!));
+  });
+  if (new URLSearchParams(location.search).get('type') === 'school') {
+    form.querySelector<HTMLInputElement>('[data-type="school"]')!.checked = true;
+    setType('school');
+  }
+
+  const messages: Record<string, string> = {
+    name: 'Please tell me your name.',
+    email: 'Please enter a valid email address.',
+    message: 'Please add a short message.',
+  };
+  const validate = () => {
+    let ok = true;
+    form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]').forEach((el) => {
+      const error = el.parentElement!.querySelector<HTMLElement>('[data-error]')!;
+      const valid = el.value.trim() !== '' && el.checkValidity();
+      error.textContent = messages[el.name];
+      error.hidden = valid;
+      el.setAttribute('aria-invalid', String(!valid));
+      if (!valid && ok) { el.focus(); ok = false; }
+    });
+    return ok;
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    const button = form.querySelector('button')!;
+    const formError = document.getElementById('form-error')!;
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    formError.hidden = true;
+    try {
+      const res = await fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
+        method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' },
+      });
+      // formsubmit can answer 200 with { success: "false" }, e.g. before the address is activated
+      const data = await res.json();
+      if (!res.ok || String(data.success) !== 'true') throw new Error(data.message);
+      form.hidden = true;
+      document.getElementById('sent')!.hidden = false;
+    } catch {
+      formError.hidden = false;
+      button.disabled = false;
+      button.textContent = 'Send to Mae';
+    }
+  });
+</script>

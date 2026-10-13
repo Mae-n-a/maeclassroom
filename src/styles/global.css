@@ -1,9 +1,37 @@
-/* src/styles/global.css */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Poppins", sans-serif;
+@layer base {
+  body {
+    @apply bg-white text-ink font-sans text-base leading-relaxed;
+    background-image: radial-gradient(#E9E4EA 1.2px, transparent 1.2px);
+    background-size: 22px 22px;
+  }
+  a { @apply text-magenta underline-offset-[3px] transition-colors duration-150 hover:text-magenta-dark; }
+  :focus-visible { outline: 2px solid #CB218C; outline-offset: 2px; }
+  ::selection { background: #FBD9EC; }
+  h1, h2, h3 { @apply font-display font-bold; }
+}
+
+@layer components {
+  .wrap { max-width: 1180px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); }
+  .section { padding-bottom: clamp(56px, 8vw, 110px); }
+  .note { @apply font-hand text-[28px] leading-tight text-magenta; }
+  .note-intro { @apply note -rotate-2 origin-left mb-1 text-[30px]; }
+  .h1 { font-size: clamp(36px, 4.6vw, 58px); @apply leading-[1.05] tracking-[-0.02em] mb-4; }
+  .h2 { font-size: clamp(30px, 3vw, 42px); @apply leading-[1.1] tracking-[-0.015em]; }
+  .btn { @apply inline-block cursor-pointer whitespace-nowrap rounded-full font-display font-bold no-underline transition-colors duration-150; }
+  .btn-primary { @apply btn bg-magenta px-6 py-[13px] text-white hover:bg-magenta-dark hover:text-white; }
+  .btn-dark { @apply btn bg-ink px-[22px] py-3 text-[15px] text-white hover:bg-strong hover:text-white; }
+  .link-arrow { @apply font-display font-bold no-underline; }
+  .field { @apply w-full rounded-xl border border-tint-input bg-white px-3.5 py-3 text-[15px] text-ink; }
+
+  /* sketchbook pieces */
+  .polaroid { @apply relative m-0 bg-white p-3 pb-10; box-shadow: 0 1px 0 #E8E4E9, 0 10px 24px rgba(25, 23, 32, 0.08); }
+  .polaroid figcaption { @apply absolute bottom-2 left-3.5 right-3.5 truncate font-hand text-[22px] text-strong; }
+  .tape { @apply absolute -top-3 left-[40%] h-[22px] w-[72px]; }
+  .card { @apply relative rounded-[10px] border border-outline bg-white p-[22px] no-underline text-ink; box-shadow: 0 6px 18px rgba(25, 23, 32, 0.05); }
+  .lined { @apply rounded-md border border-outline bg-white px-8 py-7; background-image: repeating-linear-gradient(#ffffff 0 31px, #EEF0F6 31px 32px); box-shadow: 0 10px 24px rgba(25, 23, 32, 0.06); }
+  .dashed-box { @apply rounded-[18px] border-2 border-dashed border-magenta bg-white; padding: clamp(24px, 4vw, 52px); }
 }
